@@ -1,0 +1,12 @@
+{
+  "eventId": "fixture-github-delivery-1",
+  "updatedAt": "2026-09-06T09:15:00.000Z",
+  "pullRequest": {
+    "id": "nodal-example-pr-822",
+    "number": 822,
+    "title": "Add checkout verification evidence (sample)",
+    "url": "https://github.com/example/nodal-pilot/pull/822",
+    "state": "open",
+    "draft": false
+  }
+}

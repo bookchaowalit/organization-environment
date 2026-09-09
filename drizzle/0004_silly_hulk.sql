@@ -1,0 +1,2 @@
+ALTER TABLE "office_messages" ADD COLUMN "request_id" text;--> statement-breakpoint
+ALTER TABLE "office_messages" ADD CONSTRAINT "message_request_identity" UNIQUE("tenant_id","member_id","request_id");

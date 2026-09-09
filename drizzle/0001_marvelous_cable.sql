@@ -1,0 +1,2 @@
+ALTER TABLE "decisions" ADD CONSTRAINT "decisions_state" CHECK ("decisions"."data"->>'status' IN ('proposed', 'approved_for_sync', 'synced'));--> statement-breakpoint
+ALTER TABLE "tasks" ADD CONSTRAINT "tasks_state" CHECK ("tasks"."data"->>'status' IN ('proposed', 'approved_for_sync', 'synced'));

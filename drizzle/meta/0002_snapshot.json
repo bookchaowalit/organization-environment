@@ -1,0 +1,1020 @@
+{
+  "id": "56e9c041-68e1-4550-bbcc-4717066fb385",
+  "prevId": "2c04bc2e-bfdf-4e88-8cb3-725823b400c7",
+  "version": "7",
+  "dialect": "postgresql",
+  "tables": {
+    "public.activity_events": {
+      "name": "activity_events",
+      "schema": "",
+      "columns": {
+        "tenant_id": {
+          "name": "tenant_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "data": {
+          "name": "data",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "actor_id": {
+          "name": "actor_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "generated": {
+            "as": "data->>'actorId'",
+            "type": "stored"
+          }
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "activity_events_tenant_id_id_entities_tenant_id_id_fk": {
+          "name": "activity_events_tenant_id_id_entities_tenant_id_id_fk",
+          "tableFrom": "activity_events",
+          "tableTo": "entities",
+          "columnsFrom": [
+            "tenant_id",
+            "id"
+          ],
+          "columnsTo": [
+            "tenant_id",
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "activity_events_tenant_id_actor_id_actors_tenant_id_id_fk": {
+          "name": "activity_events_tenant_id_actor_id_actors_tenant_id_id_fk",
+          "tableFrom": "activity_events",
+          "tableTo": "actors",
+          "columnsFrom": [
+            "tenant_id",
+            "actor_id"
+          ],
+          "columnsTo": [
+            "tenant_id",
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "activity_events_tenant_id_id_pk": {
+          "name": "activity_events_tenant_id_id_pk",
+          "columns": [
+            "tenant_id",
+            "id"
+          ]
+        }
+      },
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {
+        "activity_events_identity": {
+          "name": "activity_events_identity",
+          "value": "\"activity_events\".\"data\"->>'id' = \"activity_events\".\"id\""
+        }
+      },
+      "isRLSEnabled": false
+    },
+    "public.actors": {
+      "name": "actors",
+      "schema": "",
+      "columns": {
+        "tenant_id": {
+          "name": "tenant_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "data": {
+          "name": "data",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "actors_tenant_id_id_entities_tenant_id_id_fk": {
+          "name": "actors_tenant_id_id_entities_tenant_id_id_fk",
+          "tableFrom": "actors",
+          "tableTo": "entities",
+          "columnsFrom": [
+            "tenant_id",
+            "id"
+          ],
+          "columnsTo": [
+            "tenant_id",
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "actors_tenant_id_id_pk": {
+          "name": "actors_tenant_id_id_pk",
+          "columns": [
+            "tenant_id",
+            "id"
+          ]
+        }
+      },
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {
+        "actors_identity": {
+          "name": "actors_identity",
+          "value": "\"actors\".\"data\"->>'id' = \"actors\".\"id\""
+        }
+      },
+      "isRLSEnabled": false
+    },
+    "public.citations": {
+      "name": "citations",
+      "schema": "",
+      "columns": {
+        "tenant_id": {
+          "name": "tenant_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "entity_id": {
+          "name": "entity_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "source_id": {
+          "name": "source_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "excerpt": {
+          "name": "excerpt",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "citations_tenant_id_entity_id_entities_tenant_id_id_fk": {
+          "name": "citations_tenant_id_entity_id_entities_tenant_id_id_fk",
+          "tableFrom": "citations",
+          "tableTo": "entities",
+          "columnsFrom": [
+            "tenant_id",
+            "entity_id"
+          ],
+          "columnsTo": [
+            "tenant_id",
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "citations_tenant_id_source_id_source_entities_tenant_id_id_fk": {
+          "name": "citations_tenant_id_source_id_source_entities_tenant_id_id_fk",
+          "tableFrom": "citations",
+          "tableTo": "source_entities",
+          "columnsFrom": [
+            "tenant_id",
+            "source_id"
+          ],
+          "columnsTo": [
+            "tenant_id",
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "citations_tenant_id_entity_id_source_id_pk": {
+          "name": "citations_tenant_id_entity_id_source_id_pk",
+          "columns": [
+            "tenant_id",
+            "entity_id",
+            "source_id"
+          ]
+        }
+      },
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.decisions": {
+      "name": "decisions",
+      "schema": "",
+      "columns": {
+        "tenant_id": {
+          "name": "tenant_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "data": {
+          "name": "data",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "meeting_id": {
+          "name": "meeting_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "generated": {
+            "as": "data->'source'->>'id'",
+            "type": "stored"
+          }
+        },
+        "state": {
+          "name": "state",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "generated": {
+            "as": "data->>'status'",
+            "type": "stored"
+          }
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "decisions_tenant_id_id_entities_tenant_id_id_fk": {
+          "name": "decisions_tenant_id_id_entities_tenant_id_id_fk",
+          "tableFrom": "decisions",
+          "tableTo": "entities",
+          "columnsFrom": [
+            "tenant_id",
+            "id"
+          ],
+          "columnsTo": [
+            "tenant_id",
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "decisions_tenant_id_meeting_id_meetings_tenant_id_id_fk": {
+          "name": "decisions_tenant_id_meeting_id_meetings_tenant_id_id_fk",
+          "tableFrom": "decisions",
+          "tableTo": "meetings",
+          "columnsFrom": [
+            "tenant_id",
+            "meeting_id"
+          ],
+          "columnsTo": [
+            "tenant_id",
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "decisions_tenant_id_id_pk": {
+          "name": "decisions_tenant_id_id_pk",
+          "columns": [
+            "tenant_id",
+            "id"
+          ]
+        }
+      },
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {
+        "decisions_identity": {
+          "name": "decisions_identity",
+          "value": "\"decisions\".\"data\"->>'id' = \"decisions\".\"id\""
+        },
+        "decisions_state": {
+          "name": "decisions_state",
+          "value": "\"decisions\".\"state\" IN ('proposed', 'approved_for_sync', 'synced')"
+        }
+      },
+      "isRLSEnabled": false
+    },
+    "public.entities": {
+      "name": "entities",
+      "schema": "",
+      "columns": {
+        "tenant_id": {
+          "name": "tenant_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "entities_tenant_id_organizations_tenant_id_fk": {
+          "name": "entities_tenant_id_organizations_tenant_id_fk",
+          "tableFrom": "entities",
+          "tableTo": "organizations",
+          "columnsFrom": [
+            "tenant_id"
+          ],
+          "columnsTo": [
+            "tenant_id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "entities_tenant_id_id_pk": {
+          "name": "entities_tenant_id_id_pk",
+          "columns": [
+            "tenant_id",
+            "id"
+          ]
+        }
+      },
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.entity_links": {
+      "name": "entity_links",
+      "schema": "",
+      "columns": {
+        "tenant_id": {
+          "name": "tenant_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "from_id": {
+          "name": "from_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "to_id": {
+          "name": "to_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "data": {
+          "name": "data",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "entity_links_tenant_id_from_id_entities_tenant_id_id_fk": {
+          "name": "entity_links_tenant_id_from_id_entities_tenant_id_id_fk",
+          "tableFrom": "entity_links",
+          "tableTo": "entities",
+          "columnsFrom": [
+            "tenant_id",
+            "from_id"
+          ],
+          "columnsTo": [
+            "tenant_id",
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "entity_links_tenant_id_to_id_entities_tenant_id_id_fk": {
+          "name": "entity_links_tenant_id_to_id_entities_tenant_id_id_fk",
+          "tableFrom": "entity_links",
+          "tableTo": "entities",
+          "columnsFrom": [
+            "tenant_id",
+            "to_id"
+          ],
+          "columnsTo": [
+            "tenant_id",
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "entity_links_tenant_id_id_pk": {
+          "name": "entity_links_tenant_id_id_pk",
+          "columns": [
+            "tenant_id",
+            "id"
+          ]
+        }
+      },
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {
+        "link_identity": {
+          "name": "link_identity",
+          "value": "\"entity_links\".\"data\"->>'id' = \"entity_links\".\"id\" AND \"entity_links\".\"data\"->>'from' = \"entity_links\".\"from_id\" AND \"entity_links\".\"data\"->>'to' = \"entity_links\".\"to_id\""
+        }
+      },
+      "isRLSEnabled": false
+    },
+    "public.meetings": {
+      "name": "meetings",
+      "schema": "",
+      "columns": {
+        "tenant_id": {
+          "name": "tenant_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "data": {
+          "name": "data",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "source_id": {
+          "name": "source_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "generated": {
+            "as": "data->>'sourceId'",
+            "type": "stored"
+          }
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "meetings_tenant_id_id_entities_tenant_id_id_fk": {
+          "name": "meetings_tenant_id_id_entities_tenant_id_id_fk",
+          "tableFrom": "meetings",
+          "tableTo": "entities",
+          "columnsFrom": [
+            "tenant_id",
+            "id"
+          ],
+          "columnsTo": [
+            "tenant_id",
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "meetings_tenant_id_source_id_source_entities_tenant_id_id_fk": {
+          "name": "meetings_tenant_id_source_id_source_entities_tenant_id_id_fk",
+          "tableFrom": "meetings",
+          "tableTo": "source_entities",
+          "columnsFrom": [
+            "tenant_id",
+            "source_id"
+          ],
+          "columnsTo": [
+            "tenant_id",
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "meetings_tenant_id_id_pk": {
+          "name": "meetings_tenant_id_id_pk",
+          "columns": [
+            "tenant_id",
+            "id"
+          ]
+        }
+      },
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {
+        "meetings_identity": {
+          "name": "meetings_identity",
+          "value": "\"meetings\".\"data\"->>'id' = \"meetings\".\"id\""
+        }
+      },
+      "isRLSEnabled": false
+    },
+    "public.organizations": {
+      "name": "organizations",
+      "schema": "",
+      "columns": {
+        "tenant_id": {
+          "name": "tenant_id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "data": {
+          "name": "data",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {
+        "organization_identity": {
+          "name": "organization_identity",
+          "value": "\"organizations\".\"data\"->>'id' = \"organizations\".\"tenant_id\""
+        }
+      },
+      "isRLSEnabled": false
+    },
+    "public.rooms": {
+      "name": "rooms",
+      "schema": "",
+      "columns": {
+        "tenant_id": {
+          "name": "tenant_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "data": {
+          "name": "data",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "rooms_tenant_id_id_entities_tenant_id_id_fk": {
+          "name": "rooms_tenant_id_id_entities_tenant_id_id_fk",
+          "tableFrom": "rooms",
+          "tableTo": "entities",
+          "columnsFrom": [
+            "tenant_id",
+            "id"
+          ],
+          "columnsTo": [
+            "tenant_id",
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "rooms_tenant_id_id_pk": {
+          "name": "rooms_tenant_id_id_pk",
+          "columns": [
+            "tenant_id",
+            "id"
+          ]
+        }
+      },
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {
+        "rooms_identity": {
+          "name": "rooms_identity",
+          "value": "\"rooms\".\"data\"->>'id' = \"rooms\".\"id\""
+        }
+      },
+      "isRLSEnabled": false
+    },
+    "public.source_entities": {
+      "name": "source_entities",
+      "schema": "",
+      "columns": {
+        "tenant_id": {
+          "name": "tenant_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "provider": {
+          "name": "provider",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "external_id": {
+          "name": "external_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "data": {
+          "name": "data",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "source_entities_tenant_id_id_entities_tenant_id_id_fk": {
+          "name": "source_entities_tenant_id_id_entities_tenant_id_id_fk",
+          "tableFrom": "source_entities",
+          "tableTo": "entities",
+          "columnsFrom": [
+            "tenant_id",
+            "id"
+          ],
+          "columnsTo": [
+            "tenant_id",
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "source_entities_tenant_id_id_pk": {
+          "name": "source_entities_tenant_id_id_pk",
+          "columns": [
+            "tenant_id",
+            "id"
+          ]
+        }
+      },
+      "uniqueConstraints": {
+        "source_identity": {
+          "name": "source_identity",
+          "nullsNotDistinct": false,
+          "columns": [
+            "tenant_id",
+            "provider",
+            "external_id"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {
+        "source_data_identity": {
+          "name": "source_data_identity",
+          "value": "\"source_entities\".\"data\"->>'id' = \"source_entities\".\"id\" AND \"source_entities\".\"data\"->>'provider' = \"source_entities\".\"provider\" AND \"source_entities\".\"data\"->>'externalId' = \"source_entities\".\"external_id\""
+        }
+      },
+      "isRLSEnabled": false
+    },
+    "public.sync_runs": {
+      "name": "sync_runs",
+      "schema": "",
+      "columns": {
+        "tenant_id": {
+          "name": "tenant_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "provider": {
+          "name": "provider",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "event_id": {
+          "name": "event_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "data": {
+          "name": "data",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "sync_runs_tenant_id_organizations_tenant_id_fk": {
+          "name": "sync_runs_tenant_id_organizations_tenant_id_fk",
+          "tableFrom": "sync_runs",
+          "tableTo": "organizations",
+          "columnsFrom": [
+            "tenant_id"
+          ],
+          "columnsTo": [
+            "tenant_id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "sync_runs_tenant_id_id_pk": {
+          "name": "sync_runs_tenant_id_id_pk",
+          "columns": [
+            "tenant_id",
+            "id"
+          ]
+        }
+      },
+      "uniqueConstraints": {
+        "sync_delivery_identity": {
+          "name": "sync_delivery_identity",
+          "nullsNotDistinct": false,
+          "columns": [
+            "tenant_id",
+            "provider",
+            "event_id"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {
+        "sync_identity": {
+          "name": "sync_identity",
+          "value": "\"sync_runs\".\"data\"->>'id' = \"sync_runs\".\"id\" AND \"sync_runs\".\"data\"->>'provider' = \"sync_runs\".\"provider\" AND \"sync_runs\".\"data\"->>'eventId' = \"sync_runs\".\"event_id\""
+        }
+      },
+      "isRLSEnabled": false
+    },
+    "public.tasks": {
+      "name": "tasks",
+      "schema": "",
+      "columns": {
+        "tenant_id": {
+          "name": "tenant_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "data": {
+          "name": "data",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "owner_id": {
+          "name": "owner_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "generated": {
+            "as": "data->>'ownerId'",
+            "type": "stored"
+          }
+        },
+        "decision_id": {
+          "name": "decision_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "generated": {
+            "as": "data->>'decisionId'",
+            "type": "stored"
+          }
+        },
+        "state": {
+          "name": "state",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "generated": {
+            "as": "data->>'status'",
+            "type": "stored"
+          }
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "tasks_tenant_id_id_entities_tenant_id_id_fk": {
+          "name": "tasks_tenant_id_id_entities_tenant_id_id_fk",
+          "tableFrom": "tasks",
+          "tableTo": "entities",
+          "columnsFrom": [
+            "tenant_id",
+            "id"
+          ],
+          "columnsTo": [
+            "tenant_id",
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "tasks_tenant_id_owner_id_actors_tenant_id_id_fk": {
+          "name": "tasks_tenant_id_owner_id_actors_tenant_id_id_fk",
+          "tableFrom": "tasks",
+          "tableTo": "actors",
+          "columnsFrom": [
+            "tenant_id",
+            "owner_id"
+          ],
+          "columnsTo": [
+            "tenant_id",
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "tasks_tenant_id_decision_id_decisions_tenant_id_id_fk": {
+          "name": "tasks_tenant_id_decision_id_decisions_tenant_id_id_fk",
+          "tableFrom": "tasks",
+          "tableTo": "decisions",
+          "columnsFrom": [
+            "tenant_id",
+            "decision_id"
+          ],
+          "columnsTo": [
+            "tenant_id",
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "tasks_tenant_id_id_pk": {
+          "name": "tasks_tenant_id_id_pk",
+          "columns": [
+            "tenant_id",
+            "id"
+          ]
+        }
+      },
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {
+        "tasks_identity": {
+          "name": "tasks_identity",
+          "value": "\"tasks\".\"data\"->>'id' = \"tasks\".\"id\""
+        },
+        "tasks_state": {
+          "name": "tasks_state",
+          "value": "\"tasks\".\"state\" IN ('proposed', 'approved_for_sync', 'synced')"
+        }
+      },
+      "isRLSEnabled": false
+    },
+    "public.work_items": {
+      "name": "work_items",
+      "schema": "",
+      "columns": {
+        "tenant_id": {
+          "name": "tenant_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "data": {
+          "name": "data",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "owner_id": {
+          "name": "owner_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "generated": {
+            "as": "data->>'ownerId'",
+            "type": "stored"
+          }
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "work_items_tenant_id_id_entities_tenant_id_id_fk": {
+          "name": "work_items_tenant_id_id_entities_tenant_id_id_fk",
+          "tableFrom": "work_items",
+          "tableTo": "entities",
+          "columnsFrom": [
+            "tenant_id",
+            "id"
+          ],
+          "columnsTo": [
+            "tenant_id",
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "work_items_tenant_id_owner_id_actors_tenant_id_id_fk": {
+          "name": "work_items_tenant_id_owner_id_actors_tenant_id_id_fk",
+          "tableFrom": "work_items",
+          "tableTo": "actors",
+          "columnsFrom": [
+            "tenant_id",
+            "owner_id"
+          ],
+          "columnsTo": [
+            "tenant_id",
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "work_items_tenant_id_id_pk": {
+          "name": "work_items_tenant_id_id_pk",
+          "columns": [
+            "tenant_id",
+            "id"
+          ]
+        }
+      },
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {
+        "work_items_identity": {
+          "name": "work_items_identity",
+          "value": "\"work_items\".\"data\"->>'id' = \"work_items\".\"id\""
+        }
+      },
+      "isRLSEnabled": false
+    }
+  },
+  "enums": {},
+  "schemas": {},
+  "sequences": {},
+  "roles": {},
+  "policies": {},
+  "views": {},
+  "_meta": {
+    "columns": {},
+    "schemas": {},
+    "tables": {}
+  }
+}

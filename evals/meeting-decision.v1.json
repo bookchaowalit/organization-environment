@@ -1,0 +1,27 @@
+{
+  "schema_version": "organization-environment.eval.v1",
+  "name": "meeting-decision-extraction",
+  "status": "fixture-only",
+  "cases": [
+    {
+      "id": "checkout-staging-001",
+      "input": "Team agreed to ship the new checkout to staging tomorrow. Alice owns the UI adapter, Book owns the API adapter, and QA verifies the staging regression after both are ready.",
+      "expected": {
+        "decision_title": "Ship the new checkout to staging tomorrow",
+        "task_count": 3,
+        "owners": ["actor-alice", "actor-book", "agent-qa"],
+        "requires_human_approval": true
+      }
+    },
+    {
+      "id": "missing-owner-001",
+      "input": "We should improve checkout reliability next week, but no owner or measurable outcome was agreed.",
+      "expected": {
+        "result": "needs_review",
+        "task_count": 0,
+        "requires_human_approval": true
+      }
+    }
+  ]
+}
+
