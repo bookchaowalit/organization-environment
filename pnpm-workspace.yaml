@@ -4,3 +4,8 @@ packages:
 
 allowBuilds:
   esbuild: true
+
+overrides:
+  # drizzle-kit -> @esbuild-kit/core-utils pins esbuild ~0.18.20 (GHSA-67mh-4wv8-2f99, dev-server CORS).
+  # core-utils only calls esbuild's transform API, which 0.25 keeps; drizzle-kit itself already uses 0.25.
+  "@esbuild-kit/core-utils>esbuild": ^0.25.12
