@@ -1,0 +1,30 @@
+# CI + security baseline (DevSecOps Phase 1). Public repository: GitHub-hosted runners.
+# Nothing is deployed from this repository.
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  nodal:
+    # Vitest unit suites (persistence runs on in-process PGlite, no server needed).
+    # Playwright e2e (`pnpm test:e2e`) needs a running app and LiveKit media, so it stays local.
+    uses: bookchaowalit/platform-ci-workflows/.github/workflows/ci-node.yml@c37ef9d113eefb3ed45429717cb7ca201192c3fc # v1.0.1
+    with:
+      node-version: "22" # package.json engines: node >=20.9
+      pnpm-version: "10.34.7" # package.json has no packageManager field; lockfile v9
+      lint-command: "" # follow-up: no linter configured yet; adopt Biome separately
+      build-command: pnpm build
+
+  security:
+    uses: bookchaowalit/platform-ci-workflows/.github/workflows/security.yml@c37ef9d113eefb3ed45429717cb7ca201192c3fc # v1.0.1
